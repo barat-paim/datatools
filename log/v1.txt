@@ -1,0 +1,28 @@
+✅ Fetches JSON data from an API
+✅ Detects the schema dynamically
+✅ Automatically detects the main data property
+✅ Validates the data
+✅ Converts it into a Pandas DataFrame
+✅ Displays the DataFrame to the user
+
+
+Problems:
+
+What if the DataFrame contains a column where each row,
+and each row has a variable that holds a list? In such cases, 
+the DataFrame can represent complex data structures, allowing 
+for nested information. This can be useful for scenarios where 
+each entry may have multiple associated values, such as multiple 
+practice sessions for a race. 
+
+Compiler_2.py is a new compiler that fixes this problem.
+It can extract nested lists from the API and structure them into a 
+proper DataFrame. Previous one failed at deep nested extraction.
+
+Compiler_3.py is a new compiler that fixes this problem.
+It can extract nested lists from the API and structure them into a 
+proper DataFrame. Previous one failed at deep nested extraction. This can 
+be used for extracting data from API that has lists of lists. howver, failed
+to extract shallow lists.
+
+Compiler_4.py is a new compiler that fixes this problem.
