@@ -143,10 +143,29 @@ class RelationalProcessor:
         return structured
 
 def fetch_api_data(api_url):
-    """Fetch JSON data from an API endpoint."""
-    response = requests.get(api_url)
-    response.raise_for_status()
-    return response.json()
+    """Fetch JSON data from an API endpoint with proper format handling"""
+    try:
+        # Force JSON response format
+        if '?' in api_url:
+            api_url += "&format=json"
+        else:
+            api_url += "?format=json"
+        
+        response = requests.get(api_url)
+        response.raise_for_status()
+        
+        # Verify content type
+        content_type = response.headers.get('Content-Type', '')
+        if 'json' not in content_type:
+            raise ValueError(f"Unexpected content type: {content_type}")
+        
+        return response.json()
+    except (requests.exceptions.RequestException, ValueError) as e:
+        print(f"❌ API request failed: {str(e)}")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"❌ Invalid JSON response: {str(e)}")
+        return None
 
 def generate_schema(data):
     """Generate JSON schema from data."""
@@ -193,9 +212,7 @@ def display_results(result):
 
 # Example test URLs (uncomment to use)
 test_urls = [
-    "http://api.jolpi.ca/ergast/f1/2024/sprint.json",
-    "http://api.jolpi.ca/ergast/f1/circuits.json",
-    "http://api.jolpi.ca/ergast/f1/2024/races.json"
+    "http://ergast.com/api/f1/2020/constructors.json"
 ]
 
 # Run test with first URL
