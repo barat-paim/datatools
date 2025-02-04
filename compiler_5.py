@@ -212,7 +212,7 @@ def display_results(result):
 
 # Example test URLs (uncomment to use)
 test_urls = [
-    "http://ergast.com/api/f1/2020/constructors.json"
+    "https://data.typeracer.com/games?playerId=tr:barat_paim&universe=play&n=300&beforeId=522.json"
 ]
 
 # Run test with first URL
